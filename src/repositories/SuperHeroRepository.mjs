@@ -21,6 +21,22 @@ class SuperHeroRepository extends IRepository {
   async obtenerMayoresDe30() {
     return await SuperHero.find({ edad: { $gt: 30 } });
   }
+
+  async crearSuperhero(data) {
+    return await SuperHero.create(data);
+  }
+
+  async updateHero(id, data) {
+    return await SuperHero.updateOne({ _id: id }, data);
+  }
+
+  async deleteId(id) {
+    return await SuperHero.deleteOne({ _id: id });
+  }
+
+  async deleteName(name) {
+    return await SuperHero.deleteOne({ nombreSuperHeroe: name });
+  }
 }
 
 export default new SuperHeroRepository();

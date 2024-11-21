@@ -9,6 +9,7 @@ export function renderizarSuperheroe(superheroe) {
     Poderes: superheroe.poderes,
     Aliados: superheroe.aliados,
     Enemigos: superheroe.enemigos,
+    creador: { type: String, default: "Nacho Miranda" },
   };
 }
 export function renderizarListaSuperheroes(superheroes) {

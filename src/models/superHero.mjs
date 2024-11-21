@@ -13,6 +13,7 @@ const superheroSchema = new mongoose.Schema({
   aliados: { type: String },
   enemigos: { type: String },
   createdAT: { type: Date, default: Date.now },
+  creador: { type: String, default: "Nacho Miranda" },
 });
 
 export default mongoose.model("SuperHero", superheroSchema, "Grupo-02");

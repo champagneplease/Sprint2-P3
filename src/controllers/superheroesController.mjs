@@ -1,8 +1,12 @@
 import {
   obtenerSuperheroePorId,
+  crearSuperhero,
+  deleteId,
+  deleteName,
   obtenerSuperheroesMayoresDe30,
   obtenerTodosLosSuperheroe,
   buscarSuperheroePorAtributo,
+  updateHero,
 } from "../services/SuperheroesService.mjs";
 
 import {
@@ -41,4 +45,49 @@ export async function buscarSuperheroePorAtributoController(req, res) {
 export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
   const superheroes = await obtenerSuperheroesMayoresDe30();
   res.send(renderizarListaSuperheroes(superheroes));
+}
+
+export async function crearSuperheroController(req, res) {
+  const {
+    nombreSuperHeroe,
+    nombreReal,
+    edad,
+    planetaOrigen,
+    debilidad,
+    poderes,
+    aliados,
+    enemigos,
+    creador,
+  } = req.body;
+  const nuevoHeroe = await crearSuperhero({
+    nombreSuperHeroe,
+    nombreReal,
+    edad,
+    planetaOrigen,
+    debilidad,
+    poderes,
+    aliados,
+    enemigos,
+    creador,
+  });
+  res.send(renderizarListaSuperheroes([nuevoHeroe]));
+}
+
+export async function heroUpdateController(req, res) {
+  const { id } = req.params;
+  const data = req.body;
+  const heroeActualizado = await updateHero(id, data);
+  res.send(renderizarListaSuperheroes([heroeActualizado]));
+}
+
+export async function deleteIdController(req, res) {
+  const { id } = req.params;
+  const borrarHeroe = await deleteId(id);
+  res.send(renderizarListaSuperheroes([borrarHeroe]));
+}
+
+export async function deleteNameController(req, res) {
+  const { name } = req.params;
+  const borrarHeroe = await deleteName(name);
+  res.send(renderizarListaSuperheroes([borrarHeroe]));
 }
