@@ -1,3 +1,4 @@
+import { validationResult } from "express-validator";
 import {
   obtenerSuperheroePorId,
   crearSuperhero,
@@ -48,6 +49,10 @@ export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
 }
 
 export async function crearSuperheroController(req, res) {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return res.status(400).json({ error: error.array() });
+  }
   const {
     nombreSuperHeroe,
     nombreReal,
@@ -74,6 +79,10 @@ export async function crearSuperheroController(req, res) {
 }
 
 export async function heroUpdateController(req, res) {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return res.status(400).json({ error: error.array() });
+  }
   const { id } = req.params;
   const data = req.body;
   const heroeActualizado = await updateHero(id, data);

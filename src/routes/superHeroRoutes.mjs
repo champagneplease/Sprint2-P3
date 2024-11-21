@@ -1,5 +1,5 @@
 import express from "express";
-
+import { body } from "express-validator";
 import {
   obtenerSuperheroePorIdController,
   crearSuperheroController,
@@ -21,8 +21,28 @@ router.get(
 );
 router.get("/heroes/mayores/30", obtenerSuperheroesMayoresDe30Controller);
 
-router.post("/heroe", crearSuperheroController);
-router.put("/heroe/update/:id", heroUpdateController);
+router.post(
+  "/heroe",
+  [
+    body("nombreSuperHeroe").isLength({ min: 3, max: 60 }).trim(),
+    body("nombreReal").isLength({ min: 3, max: 60 }).trim(),
+    body("edad").isNumeric({ min: 0 }).trim(),
+    body("poderes").isArray({ min: 1 }),
+    body("poderes.*").isString().isLength({ min: 3, max: 60 }),
+  ],
+  crearSuperheroController
+);
+router.put(
+  "/heroe/update/:id",
+  [
+    body("nombreSuperHeroe").isLength({ min: 3, max: 60 }).trim(),
+    body("nombreReal").isLength({ min: 3, max: 60 }).trim(),
+    body("edad").isNumeric({ min: 0 }).trim(),
+    body("poderes").isArray({ min: 1 }),
+    body("poderes.*").isString().isLength({ min: 3, max: 60 }),
+  ],
+  heroUpdateController
+);
 router.delete("/heroe/delete/:id", deleteIdController);
 router.delete("/heroe/delete/name/:name", deleteNameController);
 
