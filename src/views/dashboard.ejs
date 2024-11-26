@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superheroes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #AD41D9;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .superhero {
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 0;
+        }
+
+        .superhero:last-child {
+            border-bottom: none;
+        }
+
+        .superhero h2 {
+            margin: 0;
+            color: #AD41D9;
+        }
+
+        .superhero p {
+            margin: 0.5rem 0;
+        }
+
+        .superhero strong {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Superheroes</h1>
+    </header>
+    <main>
+        <% if (superheroes.length> 0) { %>
+            <% superheroes.forEach(superhero=> { %>
+                <div class="superhero">
+                    <h2>
+                        <%= superhero.nombreSuperHeroe %>
+                    </h2>
+                    <p><strong>Nombre Real:</strong>
+                        <%= superhero.nombreReal.trim() %>
+                    </p>
+                    <p><strong>Planeta de Origen:</strong>
+                        <%= superhero.planetaOrigen %>
+                    </p>
+                    <p><strong>Edad:</strong>
+                        <%= superhero.edad %> años
+                    </p>
+                    <p><strong>Debilidad:</strong>
+                        <%= superhero.debilidad %>
+                    </p>
+                    <p><strong>Creado por:</strong>
+                        <%= superhero.creador %>
+                    </p>
+                    <p><strong>Fecha de Creación:</strong>
+                        <%= new Date(superhero.createdAT).toLocaleDateString() %>
+                    </p>
+                </div>
+                <% }) %>
+                    <% } else { %>
+                        <p>No hay superhéroes disponibles.</p>
+                        <% } %>
+    </main>
+</body>
+
+</html>

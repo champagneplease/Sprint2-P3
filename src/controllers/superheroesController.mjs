@@ -27,7 +27,7 @@ export async function obtenerSuperheroePorIdController(req, res) {
 
 export async function obtenerTodosLosSuperheroeController(req, res) {
   const superheroes = await obtenerTodosLosSuperheroe();
-  res.send(renderizarListaSuperheroes(superheroes));
+  res.render("dashboard", { superheroes });
 }
 
 export async function buscarSuperheroePorAtributoController(req, res) {
@@ -99,4 +99,8 @@ export async function deleteNameController(req, res) {
   const { name } = req.params;
   const borrarHeroe = await deleteName(name);
   res.send(renderizarListaSuperheroes([borrarHeroe]));
+}
+
+export async function obtenerVistaFormularioHeroe(req, res) {
+  res.render("addSuperheroe");
 }

@@ -9,6 +9,7 @@ import {
   buscarSuperheroePorAtributoController,
   obtenerSuperheroesMayoresDe30Controller,
   obtenerTodosLosSuperheroeController,
+  obtenerVistaFormularioHeroe,
 } from "../controllers/superheroesController.mjs";
 
 const router = express.Router();
@@ -32,6 +33,8 @@ router.post(
   ],
   crearSuperheroController
 );
+
+router.get("/heroe-crear", obtenerVistaFormularioHeroe);
 router.put(
   "/heroe/update/:id",
   [
