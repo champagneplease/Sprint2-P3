@@ -104,3 +104,9 @@ export async function deleteNameController(req, res) {
 export async function obtenerVistaFormularioHeroe(req, res) {
   res.render("addSuperheroe");
 }
+
+export async function obtenerVistaFormularioHeroeEditar(req, res) {
+  const { id } = req.params;
+  const superheroe = await obtenerSuperheroePorId(id);
+  res.render("editSuperheroe", { superheroe });
+}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #4CAF50;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    main {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 1rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        font-size: 1rem;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    .error {
+        color: red;
+        font-size: 0.9rem;
+    }
+</style>
+</head>
+
+<body>
+    <header>
+        <h1>Editar Superhéroe</h1>
+    </header>
+    <main>
+        <form id="superheroForm">
+            <label for="nombreSuperHeroe">Nombre del Superhéroe</label>
+            <input value="<%= superheroe.nombreSuperHeroe || '' %>" type="text" id="nombreSuperHeroe"
+                name="nombreSuperHeroe" required minlength="3" maxlength="60" placeholder="Ej: SpiderWoman">
+
+            <label for="nombreReal">Nombre Real</label>
+            <input value="<%= superheroe.nombreReal || '' %>" type="text" id="nombreReal" name="nombreReal" required
+                minlength="3" maxlength="60" placeholder="Ej: Liliana">
+
+            <label for="edad">Edad</label>
+            <input value="<%= superheroe.edad || '' %>" type="number" id="edad" name="edad" required min="0"
+                placeholder="Ej: 30">
+
+            <label for="universo">Universo</label>
+            <select id="universo" name="universo" required>
+                <option value="Marvel" <%=superheroe.universo==='Marvel' ? 'selected' : '' %>>Marvel</option>
+                <option value="DC" <%=superheroe.universo==='DC' ? 'selected' : '' %>>DC</option>
+                <option value="Otro" <%=superheroe.universo==='Otro' ? 'selected' : '' %>>Otro</option>
+            </select>
+
+            <label for="planetaOrigen">Planeta de Origen</label>
+            <input value="<%= superheroe.planetaOrigen || '' %>" type="text" id="planetaOrigen" name="planetaOrigen"
+                required minlength="3" maxlength="60" placeholder="Ej: Tierra">
+
+            <label for="debilidad">Debilidad</label>
+            <input value="<%= superheroe.debilidad || '' %>" type="text" id="debilidad" name="debilidad" required
+                minlength="3" maxlength="60" placeholder="Ej: Kryptonita">
+
+            <label for="poderes">Poderes</label>
+            <textarea id="poderes" name="poderes" required
+                placeholder="Separa los poderes con comas. Ej: Agilidad, fuerza sobrehumana"><%= superheroe.poderes || '' %></textarea>
+
+            <label for="creador">Creador</label>
+            <input value="<%= superheroe.creador || '' %>" type="text" id="creador" name="creador" required
+                minlength="3" maxlength="60" placeholder="Ej: Stan Lee">
+
+            <button type="submit">Editar Superhéroe</button>
+        </form>
+    </main>
+
+
+    <script>
+        document.getElementById('superheroForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+
+            const formData = new FormData(event.target);
+            const data = {};
+            formData.forEach((value, key) => {
+                if (key === 'poderes') {
+                    data[key] = value.split(',').map(poder => poder.trim());
+                } else if (key === 'debilidad') {
+                    data[key] = value.split(',').map(debil => debil.trim());
+                }
+                else {
+                    data[key] = value;
+                }
+
+            });
+
+            try {
+
+
+                const response = await fetch("/api/heroe/update/<%= superheroe.id %>", {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    alert('superheroe modificado')
+                    window.location = 'http://localhost:3000/api/heroes'
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.message || 'No se pudo crear el superhéroe'}`);
+                }
+            } catch (error) {
+                console.error('Error al enviar el formulario:', error);
+
+            }
+        });
+    </script>
+</body>
+
+</html>

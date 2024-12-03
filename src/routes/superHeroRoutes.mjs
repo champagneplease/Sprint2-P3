@@ -10,6 +10,7 @@ import {
   obtenerSuperheroesMayoresDe30Controller,
   obtenerTodosLosSuperheroeController,
   obtenerVistaFormularioHeroe,
+  obtenerVistaFormularioHeroeEditar,
 } from "../controllers/superheroesController.mjs";
 
 const router = express.Router();
@@ -35,6 +36,7 @@ router.post(
 );
 
 router.get("/heroe-crear", obtenerVistaFormularioHeroe);
+router.get("/heroe-editar/:id", obtenerVistaFormularioHeroeEditar);
 router.put(
   "/heroe/update/:id",
   [
