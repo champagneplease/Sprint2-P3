@@ -2,6 +2,7 @@ import express from "express";
 import { connectDB } from "./config/dbConfig.mjs";
 import superHeroRoutes from "./routes/superHeroRoutes.mjs";
 import expressLayouts from "express-ejs-layouts";
+import superHeroViewsRoutes from "./routes/superHeroViewsRoutes.mjs";
 import path from "path";
 
 const app = express();
@@ -14,6 +15,7 @@ app.set("layout", "layout");
 app.set("view engine", "ejs");
 
 connectDB();
+app.use("/", superHeroViewsRoutes);
 app.use("/api", superHeroRoutes);
 
 app.use((req, res) => {

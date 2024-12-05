@@ -8,14 +8,10 @@ import {
   deleteNameController,
   buscarSuperheroePorAtributoController,
   obtenerSuperheroesMayoresDe30Controller,
-  obtenerTodosLosSuperheroeController,
-  obtenerVistaFormularioHeroe,
-  obtenerVistaFormularioHeroeEditar,
 } from "../controllers/superheroesController.mjs";
 
 const router = express.Router();
 
-router.get("/heroes", obtenerTodosLosSuperheroeController);
 router.get("/heroes/:id", obtenerSuperheroePorIdController);
 router.get(
   "/heroes/buscar/:atributo/:valor",
@@ -35,8 +31,6 @@ router.post(
   crearSuperheroController
 );
 
-router.get("/heroe-crear", obtenerVistaFormularioHeroe);
-router.get("/heroe-editar/:id", obtenerVistaFormularioHeroeEditar);
 router.put(
   "/heroe/update/:id",
   [

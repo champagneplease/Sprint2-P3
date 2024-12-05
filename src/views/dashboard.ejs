@@ -95,7 +95,7 @@
                 button.addEventListener("click", function () {
                     const id = this.dataset.id;
                     if (id) {
-                        window.location = '/api/heroe-editar/' + id;
+                        window.location = '/heroe-editar/' + id;
 
                     } else {
                         console.error('ID no válido:', id);
@@ -128,7 +128,7 @@
                                         Swal.fire({
                                             title: "Heroe eliminado!",
                                             icon: "success"
-                                        }).then(() => { window.location = '/api/heroes' })
+                                        }).then(() => { window.location = '/' })
                                     } else {
                                         const errorData = await response.json();
                                         alert(`Error: ${errorData.message || 'No se pudo eliminar el superhéroe'}`);
