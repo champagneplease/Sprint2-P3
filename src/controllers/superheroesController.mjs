@@ -14,6 +14,7 @@ import {
   renderizarSuperheroe,
   renderizarListaSuperheroes,
 } from "../views/responseView.mjs";
+import { title } from "process";
 
 export async function obtenerSuperheroePorIdController(req, res) {
   const { id } = req.params;
@@ -27,7 +28,8 @@ export async function obtenerSuperheroePorIdController(req, res) {
 
 export async function obtenerTodosLosSuperheroeController(req, res) {
   const superheroes = await obtenerTodosLosSuperheroe();
-  res.render("dashboard", { superheroes });
+  const title = "Inicio SuperHeroes ";
+  res.render("dashboard", { superheroes, title });
 }
 
 export async function buscarSuperheroePorAtributoController(req, res) {
@@ -102,11 +104,11 @@ export async function deleteNameController(req, res) {
 }
 
 export async function obtenerVistaFormularioHeroe(req, res) {
-  res.render("addSuperheroe");
+  res.render("addSuperheroe", { title: "Añadir SuperHeroe" });
 }
 
 export async function obtenerVistaFormularioHeroeEditar(req, res) {
   const { id } = req.params;
   const superheroe = await obtenerSuperheroePorId(id);
-  res.render("editSuperheroe", { superheroe });
+  res.render("editSuperheroe", { superheroe, title: "Editar SuperHeroe" });
 }

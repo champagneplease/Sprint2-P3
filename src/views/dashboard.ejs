@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Superheroes</title>
+<body>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,13 +6,6 @@
             color: #333;
             margin: 0;
             padding: 0;
-        }
-
-        header {
-            background-color: #AD41D9;
-            color: white;
-            padding: 1rem;
-            text-align: center;
         }
 
         main {
@@ -56,12 +43,6 @@
             color: #333;
         }
     </style>
-</head>
-
-<body>
-    <header>
-        <h1>Superheroes</h1>
-    </header>
     <main>
         <% if (superheroes.length> 0) { %>
             <% superheroes.forEach(superhero=> { %>
@@ -82,6 +63,11 @@
                         <p><strong>Debilidad:</strong>
                             <%= superhero.debilidad %>
                         </p>
+
+                        <p><strong>Poderes:</strong>
+                            <%= superhero.poderes %>
+                        </p>
+                        
                         <p><strong>Creado por:</strong>
                             <%= superhero.creador %>
                         </p>
@@ -99,6 +85,7 @@
                         <p>No hay superhéroes disponibles.</p>
                         <% } %>
     </main>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const buttons = document.querySelectorAll(".btn-editar");
@@ -108,7 +95,7 @@
                 button.addEventListener("click", function () {
                     const id = this.dataset.id;
                     if (id) {
-                        window.location = 'http://localhost:3000/api/heroe-editar/' + id;
+                        window.location = '/api/heroe-editar/' + id;
 
                     } else {
                         console.error('ID no válido:', id);
@@ -134,14 +121,14 @@
                                 confirmButtonText: "Si, Eliminar!"
                             }).then(async (result) => {
                                 if (result.isConfirmed) {
-                                    const response = await fetch('http://localhost:3000/api/heroe/delete/' + id, {
+                                    const response = await fetch('/api/heroe/delete/' + id, {
                                         method: 'DELETE',
                                     });
                                     if (response.ok) {
                                         Swal.fire({
                                             title: "Heroe eliminado!",
                                             icon: "success"
-                                        }).then(() => { window.location = 'http://localhost:3000/api/heroes' })
+                                        }).then(() => { window.location = '/api/heroes' })
                                     } else {
                                         const errorData = await response.json();
                                         alert(`Error: ${errorData.message || 'No se pudo eliminar el superhéroe'}`);
@@ -163,5 +150,3 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
-
-</html>

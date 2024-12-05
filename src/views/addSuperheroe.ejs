@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Superhéroe</title>
+<body>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,12 +8,6 @@
             padding: 0;
         }
 
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
 
         main {
             max-width: 600px;
@@ -67,12 +55,7 @@
             font-size: 0.9rem;
         }
     </style>
-</head>
 
-<body>
-    <header>
-        <h1>Crear Superhéroe</h1>
-    </header>
     <main>
         <form id="superheroForm">
             <label for="nombreSuperHeroe">Nombre del Superhéroe</label>
@@ -145,6 +128,10 @@
                 if (response.ok) {
 
                     event.target.reset();
+                    Swal.fire({
+                        title: "SuperHeroe Creado Exitosamente!!",
+                        icon: "success"
+                    }).then(() => { window.location = '/api/heroes' })
                 } else {
                     const errorData = await response.json();
                     alert(`Error: ${errorData.message || 'No se pudo crear el superhéroe'}`);
@@ -154,7 +141,7 @@
 
             }
         });
-    </script>
-</body>
 
-</html>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>

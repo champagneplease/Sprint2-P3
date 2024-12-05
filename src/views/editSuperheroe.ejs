@@ -1,79 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar</title>
-</head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        color: #333;
-        margin: 0;
-        padding: 0;
-    }
-
-    header {
-        background-color: #4CAF50;
-        color: white;
-        padding: 1rem;
-        text-align: center;
-    }
-
-    main {
-        max-width: 600px;
-        margin: 2rem auto;
-        padding: 1rem;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    label {
-        font-weight: bold;
-    }
-
-    input,
-    select,
-    textarea,
-    button {
-        font-size: 1rem;
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        width: 100%;
-    }
-
-    button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
-
-    .error {
-        color: red;
-        font-size: 0.9rem;
-    }
-</style>
-</head>
-
 <body>
-    <header>
-        <h1>Editar Superhéroe</h1>
-    </header>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        main {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea,
+        button {
+            font-size: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9rem;
+        }
+    </style>
+
     <main>
         <form id="superheroForm">
             <label for="nombreSuperHeroe">Nombre del Superhéroe</label>
@@ -147,8 +130,11 @@
                 });
 
                 if (response.ok) {
-                    alert('superheroe modificado')
-                    window.location = 'http://localhost:3000/api/heroes'
+                    Swal.fire({
+                        title: "Heroe Modificado exitosamente!",
+                        icon: "success"
+                    }).then(() => { window.location = '/api/heroes' })
+
                 } else {
                     const errorData = await response.json();
                     alert(`Error: ${errorData.message || 'No se pudo crear el superhéroe'}`);
@@ -159,6 +145,5 @@
             }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
-
-</html>
